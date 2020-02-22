@@ -1,0 +1,16 @@
+Package: Insektlok
+Type: Package
+Title: Obtain insect locality data from coordinates
+Version: 0.1
+Author: Jon Peder Lindemann <jonpeder.lindemann@gmail.com>
+Maintainer: Jon Peder Lindemann <jonpeder.lindemann@gmail.com>
+Description: Returns locality names and strand-codes based on an input table of coordinates. The Strand-system is the common zoogeographical classification for insect occurances in Norway (Strand 1943, Økland 1981). The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Norwegian municipality borders (Anno 2012). The locality names are obtained from the Norwegian locality-name-base, Sentralt Stedsnavnregister (SSR). For each spatial point, the closest locality name will be returned. The function will only work with coordinates within the spatial boundaries of Norway. Input data can be any dataframe with coordinates in GRS longlat wgs84/Euref89, with longitudes and latitudes in separate rows. The output strand-codes and locality data will be added to the input dataset.
+Imports: XML, RCurl, sp, maptools, rgdal,
+Depends: R (>= 2.10)
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+Suggests: testthat (>= 2.1.0)
+NeedsCompilation: no
+Packaged: 2020-02-22 14:48:07 UTC; jon

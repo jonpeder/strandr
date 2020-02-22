@@ -1,0 +1,21 @@
+# Packages
+install_packages("devtools")
+install_packages("roxygen2)
+
+# Import municipality polygon dataset
+install_peackages("geojsonio")
+kommuner <- geojson_read("Kommuner18.geojson", what = "sp")
+
+# Import strand data and convert text encoding latin1 to utf-8
+
+strand <- read.table("Strand_iso88591.txt", sep = "\t", header = TRUE)
+Encoding(levels(strand$Strand_kode)) <- "latin1"
+levels(strand$Strand_kode) <- iconv(levels(strand$Strand_kode), "latin1", "UTF-8")
+
+strand <- read.table("Strand_iso88591.txt", sep = "\t", header = TRUE)
+Encoding(levels(strand$Gammel_kommune)) <- "latin1"
+levels(strand$Gammel_kommune) <- iconv(levels(strand$Gammel_kommune), "latin1", "UTF-8")
+
+
+# Use data in R package
+use_data(strand, kommuner, internal = TRUE, overwrite = TRUE)
