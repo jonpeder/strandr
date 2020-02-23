@@ -1,7 +1,7 @@
 #' Returns insect locality data
 #'
 #' Adds locality data to an input table of coordinates. Locality data is obtained from the Norwegian locality-name-base, Sentralt Stedsnavnregister (SSR). Outputs the closest locality data  for each spatial point of an input table of coordinates (Longlat).Maximum distance from locality name is set to ~ 1000 m, due to computing time
-#' @param z (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
+#' @param longlatTable (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
 #' @param long The specific row in the input table containing longitudes
 #' @param lat The specific row in the input table containing latitudes
 #' @return Returns the input dataframe with locality data added to it
@@ -11,16 +11,16 @@
 #' @import XML
 #' @import RCurl
 #' @export
-Stedsnavn <- function (z, long, lat) {
+Stedsnavn <- function (longlatTable, long, lat) {
 
   # Variables
-  z$Fylke <- ""
-  z$Kommune <- ""
-  z$Sted <- ""
-  z$Type <- ""
-  z$Dist_m <- ""
+  longlatTable$Fylke <- ""
+  longlatTable$Kommune <- ""
+  longlatTable$Sted <- ""
+  longlatTable$Type <- ""
+  longlatTable$Dist_m <- ""
 
-  for (i in 1:nrow(z)) {
+  for (i in 1:nrow(longlatTable)) {
     # Insert lat long
     x = lat[i]
     y = long[i]
@@ -55,11 +55,11 @@ Stedsnavn <- function (z, long, lat) {
 
     # Add search results to input table
 
-    z$Fylke[i] <- Loc_df[3,7]
-    z$Kommune[i] <- Loc_df[3,6]
-    z$Sted[i] <- Loc_df[3,8]
-    z$Type[i] <- Loc_df[3,5]
-    z$Dist_m[i] <- count*20
+    longlatTable$Fylke[i] <- Loc_df[3,7]
+    longlatTable$Kommune[i] <- Loc_df[3,6]
+    longlatTable$Sted[i] <- Loc_df[3,8]
+    longlatTable$Type[i] <- Loc_df[3,5]
+    longlatTable$Dist_m[i] <- count*20
   }
-  return(z)
+  return(longlatTable)
 }

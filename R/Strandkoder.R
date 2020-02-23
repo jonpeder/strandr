@@ -1,7 +1,7 @@
 #' Returns strand-codes
 #'
 #' Adds strand-codes to an input table of coordinates. The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Norwegian municipality borders (Anno 2012)
-#' @param z (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
+#' @param longlatTable (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
 #' @param long The specific row in the input table containing longitudes
 #' @param lat The specific row in the input table containing latitudes
 #' @return Returns the input dataframe with strand-codes added to it
@@ -12,7 +12,7 @@
 #' @import maptools
 #' @import rgdal
 #' @export
-Strandkoder <- function(z, long, lat) {
+Strandkoder <- function(longlatTable, long, lat) {
 
   # Import coordinates dataset
   koordx <- data.frame(long, lat)
@@ -35,21 +35,16 @@ Strandkoder <- function(z, long, lat) {
     intersectx[i,] <- as.data.frame(kommuner_sp_longlat[koordx_pts[i], ])
   }
 
-  # Add municipality-codes and 'empty' strand-codes to the input dataset
-  z$Strand_kode <- ""
-  z$Kommune_2018 <- ""
-
-  # Identify strand-codes matching kommunenummer in the dataset
-  index <- match(strandx$nummer, intersectx$Kommunenum)
+  # Cross refference municipality-codes between tables, and add municipalities and strand-codes to the input dataset
+  longlatTable$Strand_kode <- ""
+  longlatTable$Kommune_2018 <- ""
 
   # Add strand-codes to the dataset
-  for (i in 1:nrow(strandx)) {
-    if (!is.na(index[i])) {
-      z$Strand_kode[index[i]]  <- as.character(strandx$Strand_kode[i])
-      z$Kommune_2018[index[i]]  <- as.character(strandx$Gammel_kommune[i])
-    } else {
-      next
-    }
+  for (i in 1:nrow(longlatTable)) {
+    temp1 <- as.vector(strandx$Strand_kode[strandx$nummer == intersectx$Kommunenum[i]])
+    temp2 <- as.vector(strandx$Gammel_kommune[strandx$nummer == intersectx$Kommunenum[i]])
+    longlatTable$Strand_kode[i] <- temp1
+    longlatTable$Kommune_2018[i] <- temp2
   }
-  return(z)
+  return(longlatTable)
 }

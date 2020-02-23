@@ -1,7 +1,7 @@
 #' Returns strand-codes and insect locality data
 #'
 #' Adds locality names and strand-codes to an input table of coordinates.
-#' @param z (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
+#' @param longlatTable (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
 #' @param long The specific row in the input table containing longitudes
 #' @param lat The specific row in the input table containing latitudes
 #' @return Returns the input dataframe with locality names and strand-codes added to it
@@ -14,13 +14,13 @@
 #' @import maptools
 #' @import rgdal
 #' @export
-Insektlok <- function(z, long, lat) {
+Insektlok <- function(longlatTable, long, lat) {
 
   # Add Strand-localities to the dataset
-  z <- Strandkoder(z, long, lat)
+  longlatTable <- Strandkoder(longlatTable, long, lat)
 
   # Add locality names to the dataset
-  z <- Stedsnavn(z, long, lat)
+  longlatTable <- Stedsnavn(longlatTable, long, lat)
 
-  return(z)
+  return(longlatTable)
 }

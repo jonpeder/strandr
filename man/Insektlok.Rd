@@ -4,10 +4,10 @@
 \alias{Insektlok}
 \title{Returns strand-codes and insect locality data}
 \usage{
-Insektlok(z, long, lat)
+Insektlok(longlatTable, long, lat)
 }
 \arguments{
-\item{z}{(dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.}
+\item{longlatTable}{(dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.}
 
 \item{long}{The specific row in the input table containing longitudes}
 
