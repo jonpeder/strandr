@@ -34,11 +34,11 @@ Stedsnavn <- function (longlatTable, long, lat) {
 
     Loc_df <- NULL
     for (q in 1:50){
-      # Expand target area by 1 in each direction
-      x1 = (x1*10^4-8)/10^4
-      y1 = (y1*10^4-8)/10^4
-      x2 = (x2*10^4+8)/10^4
-      y2 = (y2*10^4+8)/10^4
+      # Expand target area by some degrees in each direction. Longitudes 2*latitudes to make the increase more or less square-like.
+      x1 = (x1*10^4-6)/10^4
+      y1 = (y1*10^4-12)/10^4
+      x2 = (x2*10^4+6)/10^4
+      y2 = (y2*10^4+12)/10^4
       # Search for a locality name within the given coordinates
       xURL <- paste("https://ws.geonorge.no/SKWS3Index/ssr/sok?nordLL=", x1, "&ostLL=", y1, "&nordUR=", x2, "&ostUR=", y2, "&epsgKode=", 4258, sep = "")
       xml_temp <- getURL(xURL, .encoding = "latin1")
