@@ -12,13 +12,14 @@
 #' @import RCurl
 #' @export
 Stedsnavn <- function (longlatTable, long, lat) {
-
+  
   # Variables
   longlatTable$Fylke <- ""
   longlatTable$Kommune <- ""
   longlatTable$Sted <- ""
   longlatTable$Type <- ""
   longlatTable$Dist_m <- ""
+  longlatTable$Orient <- ""
 
   for (i in 1:nrow(longlatTable)) {
     # Insert lat long
@@ -34,10 +35,10 @@ Stedsnavn <- function (longlatTable, long, lat) {
     Loc_df <- NULL
     for (q in 1:50){
       # Expand target area by 1 in each direction
-      x1 = (x1*10^4-5)/10^4
-      y1 = (y1*10^4-5)/10^4
-      x2 = (x2*10^4+5)/10^4
-      y2 = (y2*10^4+5)/10^4
+      x1 = (x1*10^4-8)/10^4
+      y1 = (y1*10^4-8)/10^4
+      x2 = (x2*10^4+8)/10^4
+      y2 = (y2*10^4+8)/10^4
       # Search for a locality name within the given coordinates
       xURL <- paste("https://ws.geonorge.no/SKWS3Index/ssr/sok?nordLL=", x1, "&ostLL=", y1, "&nordUR=", x2, "&ostUR=", y2, "&epsgKode=", 4258, sep = "")
       xml_temp <- getURL(xURL, .encoding = "latin1")
@@ -45,21 +46,25 @@ Stedsnavn <- function (longlatTable, long, lat) {
       Loc_df <- xmlToDataFrame(xml_temp2)
       #Stop loop at first hit
       if (is.null(Loc_df[3,8])==FALSE) {
-        count <- q
         break
       }
       else {
         next
       }
     }
-
+    # Calculate distnce and angle between input coordinates and locality-name
+    A <- as.numeric(Loc_df[3,9])
+    B <- as.numeric(Loc_df[3,10])
+    D <- points2dist(A, B, y, x)
+    A <- points2angle(A, B, y, x)
+    
     # Add search results to input table
-
     longlatTable$Fylke[i] <- Loc_df[3,7]
     longlatTable$Kommune[i] <- Loc_df[3,6]
     longlatTable$Sted[i] <- Loc_df[3,8]
     longlatTable$Type[i] <- Loc_df[3,5]
-    longlatTable$Dist_m[i] <- count*20
+    longlatTable$Dist_m[i] <- round(D)
+    longlatTable$Orient[i] <- A
   }
   return(longlatTable)
 }
