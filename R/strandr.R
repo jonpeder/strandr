@@ -7,20 +7,20 @@
 #' @return Returns the input dataframe with locality names and strand-codes added to it
 #' @examples ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
 #' @examples          c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-#' @examples ex_out <- Insektlok(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
+#' @examples ex_out <- strandr(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
 #' @import XML
 #' @import RCurl
 #' @import sp
 #' @import maptools
 #' @import rgdal
 #' @export
-Insektlok <- function(longlatTable, long, lat) {
+strandr <- function(longlatTable, long, lat) {
 
   # Add Strand-localities to the dataset
-  longlatTable <- Strandkoder(longlatTable, long, lat)
+  longlatTable <- strandkoder(longlatTable, long, lat)
 
   # Add locality names to the dataset
-  longlatTable <- Stedsnavn(longlatTable, long, lat)
+  longlatTable <- stedsnavn(longlatTable, long, lat)
 
   return(longlatTable)
 }

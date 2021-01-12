@@ -1,4 +1,4 @@
 library(testthat)
-library(Insektlok)
+library(strandr)
 
-test_check("Insektlok")
+test_check("strandr")

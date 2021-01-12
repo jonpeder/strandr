@@ -1,4 +1,4 @@
-Package: Insektlok
+Package: strandr
 Type: Package
 Title: Obtain insect locality data from coordinates
 Version: 0.1.2
@@ -10,7 +10,7 @@ Depends: R (>= 2.10)
 License: CC0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Suggests: testthat (>= 2.1.0)
 NeedsCompilation: no
 Packaged: 2020-02-22 14:48:07 UTC; jon
