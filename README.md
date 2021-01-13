@@ -1,7 +1,7 @@
 # strandr
 Obtain insect locality data, including Strand-codes, from coordinates (within Norway) 
 
-## Introduksjon til 'strandr': Generer lokalitetsdata, inkludert Strand-koder, fra koordinater.
+## Introduksjon
 
 Strand-systemet er en inndeling av Norge i 37 geografiske regioner basert på norges tidligere fylker (se Strand 1943, Økland 1981). Strand-systemet er populært blant entomologer i Norge, og annbefalt av Norsk Entomologisk Forening som faunistisk data. Ettersom systemet er basert på gamle kommunegrenser har det etter hvert blitt vanskeligere å finne fram til riktige Strand-koder. Målet med programmet er å gjøre denne jobben enklere, og å kunne hente andre lokalitetsdata. 
 
