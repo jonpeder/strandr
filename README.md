@@ -1,24 +1,7 @@
 # strandr
 Obtain insect locality data, including Strand-codes, from coordinates (within Norway) 
 
----
-title: "strandr: Automatiske insektlokaliteter i R"
-author: "Jon Peder Lindemann"
-date: "22 Februar 2020"
-output:
-  pdf_document: default
-  word_document: default
-  html_document: default
-editor_options:
-  chunk_output_type: inline
----
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Introduksjon til 'strandr': En R-funksjon for automatiske Strand-koder og stedsnavn
+## Introduksjon til 'strandr': Generer lokalitetsdata, inkludert Strand-koder, fra koordinater.
 
 Strand-systemet er en inndeling av Norge i 37 geografiske regioner basert på norges tidligere fylker (se Strand 1943, Økland 1981). Strand-systemet er populært blant entomologer i Norge, og annbefalt av Norsk Entomologisk Forening som faunistisk data. Ettersom systemet er basert på gamle kommunegrenser har det etter hvert blitt vanskeligere å finne fram til riktige Strand-koder. Målet med R-programmet er å gjøre denne jobben enklere. 
 
