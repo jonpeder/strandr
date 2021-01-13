@@ -42,10 +42,13 @@ strandkoder <- function(longlatTable, long, lat) {
   longlatTable$Strand_kode <- ""
   longlatTable$Kommune_2018 <- ""
   for (i in 1:nrow(longlatTable)) {
-    temp1 <- as.vector(strandx$Strand_kode[strandx$nummer == ints$Kommunenum[i]])
-    temp2 <- as.vector(strandx$Gammel_kommune[strandx$nummer == ints$Kommunenum[i]])
-    longlatTable$Strand_kode[i] <- temp1
-    longlatTable$Kommune_2018[i] <- temp2
+    if(is.na(ints$Kommunenum[i])){
+      longlatTable$Strand_kode[i] <- NA
+      longlatTable$Kommune_2018[i] <- NA
+    } else {
+      longlatTable$Strand_kode[i] <- as.vector(strandx$Strand_kode[strandx$nummer == ints$Kommunenum[i]])
+      longlatTable$Kommune_2018[i] <- as.vector(strandx$Gammel_kommune[strandx$nummer == ints$Kommunenum[i]])
+    }
   }
   return(longlatTable)
 }
