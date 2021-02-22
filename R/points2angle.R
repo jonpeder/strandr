@@ -29,27 +29,27 @@ points2angle <- function(A1, A2, B1, B2) {
 
   # Convert angle to Orientation
   if (D <= 22.5 | D > 337.5) {
-    return("[N]")
+    return("N")
   }
   if (D >= 22.5 & D < 67.5) {
-    return("[NE]")
+    return("NE")
   }
   if (D >= 67.5 & D < 112.5) {
-    return("[E]")
+    return("E")
   }
   if (D >= 112.5 & D < 157.5) {
-    return("[SE]")
+    return("SE")
   }
   if (D >= 157.5 & D < 202.5) {
-    return("[S]")
+    return("S")
   }
   if (D >= 202.5 & D < 247.5) {
-    return("[SW]")
+    return("SW")
   }
   if (D >= 247.5 & D < 292.5) {
-    return("[W]")
+    return("W")
   }
   if (D >= 292.5 & D < 337.5) {
-    return("[NW]")
+    return("NW")
   }
 }
