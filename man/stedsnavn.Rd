@@ -2,25 +2,22 @@
 % Please edit documentation in R/stedsnavn.R
 \name{stedsnavn}
 \alias{stedsnavn}
-\title{Returns insect locality data}
+\title{stedsnavn}
 \usage{
-stedsnavn(longlatTable, long, lat)
+stedsnavn(lon, lat)
 }
 \arguments{
-\item{longlatTable}{(dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.}
+\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
 
-\item{long}{The specific row in the input table containing longitudes}
-
-\item{lat}{The specific row in the input table containing latitudes}
+\item{lat}{a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates}
 }
 \value{
-Returns the input dataframe with locality data added to it
+dataframe with locality data
 }
 \description{
-Adds locality data to an input table of coordinates. Locality data is obtained from the Norwegian locality-name-base, Sentralt Stedsnavnregister (SSR). Outputs the closest locality data  for each spatial point of an input table of coordinates (Longlat).Maximum distance from locality name is set to ~ 1000 m, due to computing time
+Returns locality data from one, or a set of input coordinates (projection longlat, datum WGS84). Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 1000 m.
 }
 \examples{
-ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
-         c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-ex_out <- stedsnavn(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
+example_output <- strandkoder(lon = c(24.840064, 23.186622), 
+                              lat = c(69.57696, 70.44070))
 }

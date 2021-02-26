@@ -2,25 +2,22 @@
 % Please edit documentation in R/strandkoder.R
 \name{strandkoder}
 \alias{strandkoder}
-\title{Returns strand-codes}
+\title{strandkoder}
 \usage{
-strandkoder(longlatTable, long, lat)
+strandkoder(lon, lat)
 }
 \arguments{
-\item{longlatTable}{(dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.}
+\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
 
-\item{long}{The specific row in the input table containing longitudes}
-
-\item{lat}{The specific row in the input table containing latitudes}
+\item{lat}{a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates}
 }
 \value{
-Returns the input dataframe with strand-codes added to it
+dataframe with Strand-codes
 }
 \description{
-Adds strand-codes to an input table of coordinates. The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Norwegian municipality borders (Anno 2012)
+Returns Strand-codes from one, or a set of input coordinates (projection longlat, datum WGS84). The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Strand regions. This dataset was created by Endrestøl (2021), following the revision of the Strand-system by Økland (1981).
 }
 \examples{
-ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
-         c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-ex_out <- Strandkoder(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
+example_output <- strandkoder(lon = c(24.840064, 23.186622), 
+                              lat = c(69.57696, 70.44070))
 }

@@ -2,25 +2,28 @@
 % Please edit documentation in R/strandr.R
 \name{strandr}
 \alias{strandr}
-\title{Returns strand-codes and insect locality data}
+\title{strandr}
 \usage{
-strandr(longlatTable, long, lat)
+strandr(table_input, lon, lat)
 }
 \arguments{
-\item{longlatTable}{(dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.}
+\item{table_input}{a table to which the returned data will be added}
 
-\item{long}{The specific row in the input table containing longitudes}
+\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
 
-\item{lat}{The specific row in the input table containing latitudes}
+\item{lat}{a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates}
 }
 \value{
-Returns the input dataframe with locality names and strand-codes added to it
+dataframe with Strand-codes and locality data
 }
 \description{
-Adds locality names and strand-codes to an input table of coordinates.
+Returns Strand-codes and locality data from one, or a set of input coordinates (projection longlat, datum WGS84). The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Strand regions. Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 1000 m.
 }
 \examples{
-ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
-         c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-ex_out <- strandr(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
+example_input <- data.frame("COL_ID" = c("JPL_0051", "JPL_0052"), 
+                            "Longitude" = c(24.840064, 23.186622),
+                            "Latitude" = c(69.57696, 70.44070))
+example_output <- strandr(example_input, 
+                          lon = example_input$Longitude, 
+                          lat = example_input$Latitude)
 }

@@ -1,4 +1,5 @@
-# Function for calculating the angle of geographical point A relative to point B. 
+# points2angle, Jon Peder Lindemann, 26.02.2020
+# Return the orientation (angle) of geographical point A relative to point B, using the Haversine formula
 
 # A1 = Long point A 
 # A2 = Lat point A

@@ -1,26 +1,25 @@
-#' Returns strand-codes and insect locality data
+#' strandr
 #'
-#' Adds locality names and strand-codes to an input table of coordinates.
-#' @param longlatTable (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
-#' @param long The specific row in the input table containing longitudes
-#' @param lat The specific row in the input table containing latitudes
-#' @return Returns the input dataframe with locality names and strand-codes added to it
-#' @examples ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
-#' @examples          c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-#' @examples ex_out <- strandr(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
-#' @import XML
-#' @import RCurl
-#' @import sp
-#' @import maptools
-#' @import rgdal
+#' Returns Strand-codes and locality data from one, or a set of input coordinates (projection longlat, datum WGS84). The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Strand regions. Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 1000 m.
+#' @param table_input a table to which the returned data will be added
+#' @param lon a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates
+#' @param lat a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates
+#' @return dataframe with Strand-codes and locality data
+#' @examples example_input <- data.frame("COL_ID" = c("JPL_0051", "JPL_0052"), 
+#' @examples                             "Longitude" = c(24.840064, 23.186622),
+#' @examples                             "Latitude" = c(69.57696, 70.44070))
+#' @examples example_output <- strandr(example_input, 
+#' @examples                           lon = example_input$Longitude, 
+#' @examples                           lat = example_input$Latitude)
 #' @export
-strandr <- function(longlatTable, long, lat) {
+strandr <- function(table_input, lon, lat) {
 
-  # Add Strand-localities to the dataset
-  longlatTable <- strandkoder(longlatTable, long, lat)
-
-  # Add locality names to the dataset
-  longlatTable <- stedsnavn(longlatTable, long, lat)
-
-  return(longlatTable)
+  # Get Strand-codes
+  strand_codes <- strandkoder(lon, lat)
+  # Get locality data
+  locality_data <- stedsnavn(lon, lat)
+  # Add Strand-codes and locality data to input table
+  table_input <- data.frame(table_input, strand_codes, locality_data)
+    
+  return(table_input)
 }

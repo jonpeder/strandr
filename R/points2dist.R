@@ -1,4 +1,5 @@
-# Distance in meters between two geographical points, A and B 
+# points2dist, Jon Peder Lindemann, 26.02.2020
+# Return the distance in meters between two geographical points, A and B, using the Haversine formula
 
 # A1 = Longitude point A 
 # A2 = Latitude point A

@@ -1,30 +1,30 @@
-#' Returns insect locality data
+#' stedsnavn
 #'
-#' Adds locality data to an input table of coordinates. Locality data is obtained from the Norwegian locality-name-base, Sentralt Stedsnavnregister (SSR). Outputs the closest locality data  for each spatial point of an input table of coordinates (Longlat).Maximum distance from locality name is set to ~ 1000 m, due to computing time
-#' @param longlatTable (dataframe) A table containing coordinates. Georeference system must be longlat WGS84/Euref89. Longitudes and latitudes must be organized in separate rows. Whether there are additional rows of data in the dataset makes no difference.
-#' @param long The specific row in the input table containing longitudes
-#' @param lat The specific row in the input table containing latitudes
-#' @return Returns the input dataframe with locality data added to it
-#' @examples ex_in <- data.frame("COL_ID" = c("JPL0051", "JPL0052"), "Longitude" =
-#' @examples          c(24.840064, 23.186622), "Latitude" = c(69.57696, 70.44070))
-#' @examples ex_out <- stedsnavn(ex_in, long = ex_in$Longitude, lat = ex_in$Latitude)
+#' Returns locality data from one, or a set of input coordinates (projection longlat, datum WGS84). Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 1000 m.
+#' @param lon a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates
+#' @param lat a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates
+#' @return dataframe with locality data
+#' @examples example_output <- strandkoder(lon = c(24.840064, 23.186622), 
+#' @examples                               lat = c(69.57696, 70.44070))
 #' @import XML
-#' @import RCurl
+#' @importFrom RCurl getURL
 #' @export
-stedsnavn <- function (longlatTable, long, lat) {
+stedsnavn <- function (lon, lat) {
   
-  # Variables
-  longlatTable$Fylke <- ""
-  longlatTable$Kommune <- ""
-  longlatTable$Sted <- ""
-  longlatTable$Type <- ""
-  longlatTable$Dist_m <- ""
-  longlatTable$Orient <- ""
-
-  for (i in 1:nrow(longlatTable)) {
-    # Insert lat long
+  # output values
+  output <- data.frame(lon,
+                       lat,
+                       county = "", 
+                       municipality = "", 
+                       locality = "", 
+                       type = "", 
+                       dist_m = "",
+                       orient = "")
+  # Loop over input coordinates
+  for (i in 1:length(lon)) {
+    # add longitude and latitude to new variables
     x = lat[i]
-    y = long[i]
+    y = lon[i]
 
     # Define boundary box
     x1 = x # Lower left N coordinate
@@ -59,12 +59,12 @@ stedsnavn <- function (longlatTable, long, lat) {
     A <- points2angle(A, B, y, x)
     
     # Add search results to input table
-    longlatTable$Fylke[i] <- Loc_df[3,7]
-    longlatTable$Kommune[i] <- Loc_df[3,6]
-    longlatTable$Sted[i] <- Loc_df[3,8]
-    longlatTable$Type[i] <- Loc_df[3,5]
-    longlatTable$Dist_m[i] <- round(D)
-    longlatTable$Orient[i] <- A
+    output$county[i] <- Loc_df[3,7]
+    output$municipality[i] <- Loc_df[3,6]
+    output$locality[i] <- Loc_df[3,8]
+    output$type[i] <- Loc_df[3,5]
+    output$dist_m[i] <- round(D)
+    output$orient[i] <- A
   }
-  return(longlatTable)
+  return(output[,c(3:8)])
 }
