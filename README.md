@@ -1,5 +1,5 @@
 
-# "strandr: Insektlokaliteter i R"
+# strandr: Insektlokaliteter i R
 Jon Peder Lindemann
 26 Februar 2021
 
