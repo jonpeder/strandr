@@ -17,9 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Innledning
 
-Strand-systemet er en inndeling av Norge i 37 biogeografiske regioner basert på norske fylkesgrenser anno 1978 (Strand 1943, Økland 1981, Endrestøl 2021). Systemet har lenge vært populært blant entomologer i Norge, og ble i sin tid anbefalt av Norsk Entomologisk Forening. Etter flere runder med kommune og fylkesendringer har de gamle fylkesgrensene gradvis forandret seg, og det har i noen tilfeller blitt vanskelig å finne frem til riktige strand-regioner (strand-koder). Målet med R-programmet er å gjøre denne jobben enklere. 
+Strand-systemet er en inndeling av Norge i 37 biogeografiske regioner basert på norske fylkesgrenser anno 1978 (Strand 1943, Økland 1981, Endrestøl 2021). Systemet har lenge vært populært blant entomologer i Norge, og ble i sin tid anbefalt av Norsk Entomologisk Forening. Etter flere runder med kommune og fylkesendringer har de gamle fylkesgrensene gradvis forandret seg, og det har i noen tilfeller blitt vanskelig å finne frem til riktige strand-regioner (strand-koder). Målet med 'strandr' er å gjøre denne jobben enklere. 
 
-Funksjonen 'strandr' returnerer strand-koder og lokalitetsnavn fra en, eller et sett av desimalgrader. Strand-kodene identifiseres basert på krysningen av koordinat over  et polygon-lag av strand-regioner. Polygon-laget er laget av Anders Endrestøl (NINA) og baserer seg på kommunegrenser fra  1986 (Endrestøl 2021). Norske stedsnavn lastes ned fra Sentralt Stednavnregister (SSR) via deres API. For hvert koordinat blir det nærmeste stedsnavnet i SSR returnert.
+Funksjonen returnerer strand-koder og lokalitetsnavn fra en, eller et sett av desimalgrader. Strand-kodene identifiseres ved å finne krysningspunkt av koordinat over et polygon-lag av strand-regioner. Polygon-laget er laget av Anders Endrestøl (NINA) og baserer seg på kommunegrenser fra  1986 (Endrestøl 2021). Norske stedsnavn lastes ned fra Sentralt Stednavnregister (SSR) via deres API. For hvert koordinat blir det nærmeste stedsnavnet i SSR returnert.
 
 
 ## Eksempel
@@ -32,7 +32,7 @@ install_github("jonpeder/strandr")
 
 
 ### Importer tabell
-Importer tabell med koordinater fra en tab-separert tekstfil. Koordinatene må være desimalgrader (Projeksjon: longlat, Datum: WGS84). Tabellen kan gjerne ineholde annen innsamlingsdata, for eksempel event-ID, habitat, metode, etc. Siden SSR ikke returnerer noe navn mellom kommune og stedsnavn, kan det lønne seg å ha med et overordnet stedsnavn, for eksempel Kvaløya i Tromsø, Maridalen i Oslo, eller Søm i Grimstad.  
+Importer tabell med koordinater, for eksempel fra en tab-separert tekstfil. Koordinatene må være desimalgrader (Projeksjon: longlat, Datum: WGS84). Tabellen kan gjerne inneholde annen innsamlingsdata, for eksempel event-ID, habitat, metode, etc. Siden SSR ikke returnerer noe navn mellom kommune og stedsnavn, kan det lønne seg å ha med et overordnet stedsnavn, for eksempel Kvaløya i Tromsø, Maridalen i Oslo, eller Søm i Grimstad.  
 
 ```{r}
 eks_inn <- read.table("koordinater.txt", sep = "\t", header = TRUE) # Les inn tabellen 
@@ -56,6 +56,13 @@ eks_ut # Sjekk ut den nye tabellen
 ```{r}
 write.table(eks_ut, "eks_ut.txt", sep = "\t", row.names = FALSE, quote = FALSE)
 ```
+
+### Bare strand-koder
+```{r}
+bare_str <- strandkoder(eks_inn$latitude, eks_inn$longitude)
+bare_str
+```
+
 
 ## Referanser
 Endrestøl, A. 2021. Strand-systemet 4.0. Insektnytt 46 (1): 43-72.  

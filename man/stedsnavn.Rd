@@ -4,20 +4,20 @@
 \alias{stedsnavn}
 \title{stedsnavn}
 \usage{
-stedsnavn(lon, lat)
+stedsnavn(lat, lon)
 }
 \arguments{
-\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
-
 \item{lat}{a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates}
+
+\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
 }
 \value{
 dataframe with locality data
 }
 \description{
-Returns locality data from one, or a set of input coordinates (projection longlat, datum WGS84). Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 1000 m.
+Returns locality data from one, or a set of input coordinates (projection longlat, datum WGS84). Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 2000 m.
 }
 \examples{
-example_output <- strandkoder(lon = c(24.840064, 23.186622), 
-                              lat = c(69.57696, 70.44070))
+example_output <- stedsnavn(c(69.57696, 70.44070, 62.259262), 
+                              lon = c(24.840064, 23.186622, 12.734821))
 }

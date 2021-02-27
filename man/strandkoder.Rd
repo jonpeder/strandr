@@ -4,12 +4,12 @@
 \alias{strandkoder}
 \title{strandkoder}
 \usage{
-strandkoder(lon, lat)
+strandkoder(lat, lon)
 }
 \arguments{
-\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
-
 \item{lat}{a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates}
+
+\item{lon}{a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates}
 }
 \value{
 dataframe with Strand-codes
@@ -18,6 +18,6 @@ dataframe with Strand-codes
 Returns Strand-codes from one, or a set of input coordinates (projection longlat, datum WGS84). The strand-codes are obtained by identifying the intesects beween the input coordinates and a polygon dataset of the Strand regions. This dataset was created by Endrestøl (2021), following the revision of the Strand-system by Økland (1981).
 }
 \examples{
-example_output <- strandkoder(lon = c(24.840064, 23.186622), 
-                              lat = c(69.57696, 70.44070))
+example_output <- strandkoder(lat = c(69.57696, 70.44070, 62.259262),
+                              lon = c(24.840064, 23.186622, 12.734821))
 }
