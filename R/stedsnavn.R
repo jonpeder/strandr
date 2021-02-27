@@ -38,7 +38,7 @@ stedsnavn <- function (lat, lon) {
     # Calculate distnce and angle between input coordinates and locality-name. Use 'tryCatch' for error handeling
     tryCatch({
     D <- points2dist(name_lon, name_lat, lon[i], lat[i])
-    A <- points2angle(name_lon, name_lat, lon[i], lat[i])
+    A <- points2deg(name_lon, name_lat, lon[i], lat[i])
     # Add search results to input table
     output$county[i] <- name_df[3,7]
     output$municipality[i] <- name_df[3,6]

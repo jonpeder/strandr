@@ -1,4 +1,4 @@
-# points2angle, Jon Peder Lindemann, 26.02.2020
+# points2deg, Jon Peder Lindemann, 26.02.2020
 # Return the orientation (angle) of geographical point A relative to point B, using the Haversine formula
 
 # A1 = Long point A 
@@ -7,7 +7,7 @@
 # B2 = Lat point B
 
 
-points2angle <- function(A1, A2, B1, B2) {
+points2deg <- function(A1, A2, B1, B2) {
   # Degrees radians converter functions
   deg2rad <- function(deg) {(deg * pi) / 180}
   rad2deg <- function(rad) {(rad*180) / pi}
