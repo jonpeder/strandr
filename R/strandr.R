@@ -12,7 +12,7 @@
 #' @examples                           lat = example_input$Latitude, 
 #' @examples                           lon = example_input$Longitude)
 #' @export
-strandr <- function(table_input, lat, lon) {
+strandr <- function(table_input = "", lat, lon) {
 
   # Get Strand-codes
   strand_codes <- strandkoder(lat, lon)
