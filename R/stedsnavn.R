@@ -26,6 +26,8 @@ stedsnavn <- function (lat, lon) {
         output$orient[i] = ""
     } else {
         tryCatch({
+        # Give "Adressenavn" a high distance
+        stedsnavn_api$navn$meterFraPunkt[stedsnavn_api$navn$navneobjekttype == "Adressenavn"] = 10000
         # Use locality with shortet distance to point
         n = order(stedsnavn_api$navn$meterFraPunkt)[1]
         output$locality[i] = stedsnavn_api$navn$stedsnavn[[n]][1,1]
