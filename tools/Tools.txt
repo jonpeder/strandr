@@ -11,4 +11,10 @@ for (i in c(1,2,4,5,6,7) {
 }
 
 # Store data in 'sysdata.rda' in R package
-use_data(strand, internal = TRUE, overwrite = TRUE)
+use_data(strand, kommuner, internal = TRUE, overwrite = TRUE)
+
+# Read gml file from GeoNorge
+sf::st_layers("../../../../Downloads/Basisdata_0000_Norge_4258_Kommuner_GML.gml") # List layers
+g = sf::st_read("../../../../Downloads/Basisdata_0000_Norge_4258_Kommuner_GML.gml", layer = "Kommune") # Read specified layer
+kommuner = as(g, "Spatial") # Convert to SpatialPolygonsDataFrame
+

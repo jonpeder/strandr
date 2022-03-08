@@ -4,7 +4,7 @@
 \alias{strandr}
 \title{strandr}
 \usage{
-strandr(table_input, lat, lon)
+strandr(table_input = "", lat, lon)
 }
 \arguments{
 \item{table_input}{a table to which the returned data will be added}

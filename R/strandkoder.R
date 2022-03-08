@@ -4,10 +4,11 @@
 #' @param lon a numerical value, or vector of numerical values, that specifies the longitude(s) in the input coordinates
 #' @param lat a numerical value, or vector of numerical values, that specifies the latitude(s) in the input coordinates
 #' @return dataframe with Strand-codes
-#' @examples example_output <- strandkoder(lat = c(69.57696, 70.44070, 62.259262),
-#' @examples                               lon = c(24.840064, 23.186622, 12.734821))
+#' @examples example_output <- strandkoder(lat = c(69.57696, 70.44070, 62.259262), lon = c(24.840064, 23.186622, 12.734821))
 #' @import sp
+#' @import rgdal
 #' @export
+
 strandkoder <- function(lat, lon) {
   # Save longlat projection to variable
   ll_prj <- "+proj=longlat +datum=WGS84"
@@ -16,9 +17,18 @@ strandkoder <- function(lat, lon) {
   # Convert decimal-longlat to SpatialPoints class, with projection longlat datum wgs84
   pts <- SpatialPoints(lonlat, CRS(ll_prj))
   # Convert 'strand' spatial polygons dataframe to projection longlat and datum wgs84
-  strand.4.0 <- spTransform(strand, CRS(ll_prj))
+  #strand.4.0 <- spTransform(strand, CRS(ll_prj))
+  #kommuner <- spTransform(kommuner, CRS(ll_prj))
   # Identify municipalities intersecting with input coordinates
-  strand_codes <- over(pts, strand.4.0)
+  strand_codes <- over(pts, strand)
+  munic <- over(pts, kommuner)
+  # get municipality names
+  munic_names = NULL
+  for (i in 1:length(lat)) {
+    tmp = munic$navn[[i]][munic[[11]][[i]] == "nor"]
+    if (is.null(tmp)) {tmp = NA}
+    munic_names = c(munic_names, tmp)
+  }
   # Return dataframe
-  return(data.frame(strand = strand_codes[,2]))
+  return(data.frame(strand = strand_codes[,2], municipality = munic_names, county = strand_codes[,4]))
 }

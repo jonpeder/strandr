@@ -18,6 +18,5 @@ dataframe with locality data
 Returns locality data from one, or a set of input coordinates (projection longlat, datum WGS84). Locality names are obtained from the Norwegian locality-name-base (Sentralt Stedsnavnregister). For each input coordinate, the function returns the locality name  that is closest in distance. The maximum distance from a locality name is 2000 m.
 }
 \examples{
-example_output <- stedsnavn(c(69.57696, 70.44070, 62.259262), 
-                              lon = c(24.840064, 23.186622, 12.734821))
+example_output <- stedsnavn(lat = c(69.57696, 70.44070, 62.259262), lon = c(24.840064, 23.186622, 12.734821))
 }

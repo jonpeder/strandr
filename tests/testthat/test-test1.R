@@ -10,10 +10,10 @@ test_that("test example strandr", {
 
 test_that("test example stedsnavn", {
   ex_out <- stedsnavn(lat = c(65.834805, 70.44070), lon = c(13.191345, 23.186622))
-  expect_output(str(ex_out), "2 obs. of  6 variables")
+  expect_output(str(ex_out), "2 obs. of  4 variables")
 })
 
 test_that("test example strandkoder", {
   ex_out <- strandkoder(lat = c(65.834805, 70.44070), lon = c(13.191345, 23.186622))
-  expect_output(str(ex_out), "2 obs. of  1 variable")
+  expect_output(str(ex_out), "2 obs. of  3 variables")
 })
