@@ -15,7 +15,7 @@ stedsnavn <- function (lat, lon) {
   # Search for locality names coordinate by coordinate in a loop
   for (i in 1:length(lat)) {
     # Prepare URL for the locality name search
-    stedsnavn_url = paste0("https://ws.geonorge.no/stedsnavn/v1/punkt?nord=", lat[i], "&ost=", lon[i], "&koordsys=4326&radius=2000&utkoordsys=4326&treffPerSide=100&side=1")
+    stedsnavn_url = paste0("https://ws.geonorge.no/stedsnavn/v1/punkt?nord=", lat[i], "&ost=", lon[i], "&koordsys=4326&radius=2000&utkoordsys=4326&treffPerSide=200&side=1")
     # Make the API call
     stedsnavn_api = fromJSON(stedsnavn_url)
     # If API search is empty, return empty result
